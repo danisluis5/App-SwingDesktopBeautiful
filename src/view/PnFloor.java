@@ -81,7 +81,7 @@ public class PnFloor extends javax.swing.JPanel {
 
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iReset.png"))); // NOI18N
-        jButton2.setText("Reset");
+        jButton2.setText("Nhập lại");
         jPanel1.add(jButton2);
 
         javax.swing.GroupLayout SearchFloorLayout = new javax.swing.GroupLayout(SearchFloor);
@@ -147,6 +147,7 @@ public class PnFloor extends javax.swing.JPanel {
 
         jScrollPane1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
+        jTable1.setAutoCreateRowSorter(true);
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},

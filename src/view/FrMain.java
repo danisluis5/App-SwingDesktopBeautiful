@@ -6,6 +6,7 @@
 package view;
 
 import Utils.MenuBar;
+import Utils.TabbedPane;
 import Utils.ToolBar;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -43,9 +44,11 @@ public class FrMain extends javax.swing.JFrame implements MouseListener,ActionLi
     private JMenu jmHelp;
     
     private ToolBar standart;
-    private JTabbedPane tabService;
-    private JTabbedPane tabRoom;
-    private JTabbedPane tabUser;
+    private JTabbedPane tabHome;
+    private TabbedPane tabRoom;
+    private TabbedPane tabUser;
+    private TabbedPane tabBooking;
+    private TabbedPane tabService;
     
     private MenuBar mb;
     
@@ -452,6 +455,14 @@ public class FrMain extends javax.swing.JFrame implements MouseListener,ActionLi
                 btn4.setForeground(Color.decode("#132c4c"));
                 btn5.setEnabled(true);
                 btn5.setForeground(Color.decode("#132c4c"));
+                
+                tabHome = new JTabbedPane();
+                tabHome.setFont(new Font("Tahoma", Font.BOLD, 12));
+                tabHome.setBorder(BorderFactory.createEmptyBorder());
+                Center.removeAll();
+                Center.setLayout(new BorderLayout());
+                Center.add(tabHome,BorderLayout.CENTER);
+                initTabJpanelBar(tabHome,1);
             }
         });
         btn2.addActionListener(new ActionListener() {
@@ -470,7 +481,7 @@ public class FrMain extends javax.swing.JFrame implements MouseListener,ActionLi
                 btn5.setForeground(Color.decode("#132c4c"));
                 
                 // comment
-                tabRoom = new JTabbedPane();
+                tabRoom = new TabbedPane();
                 tabRoom.setFont(new Font("Tahoma", Font.BOLD, 12));
                 tabRoom.setBorder(BorderFactory.createEmptyBorder());
                 Center.removeAll();
@@ -495,7 +506,7 @@ public class FrMain extends javax.swing.JFrame implements MouseListener,ActionLi
                 btn5.setForeground(Color.decode("#132c4c"));
                 
                 // comment
-                tabUser = new JTabbedPane();
+                tabUser = new TabbedPane();
                 tabUser.setFont(new Font("Tahoma", Font.BOLD, 12));
                 tabUser.setBorder(BorderFactory.createEmptyBorder());
                 Center.removeAll();
@@ -518,6 +529,15 @@ public class FrMain extends javax.swing.JFrame implements MouseListener,ActionLi
                 btn3.setForeground(Color.decode("#132c4c"));
                 btn5.setEnabled(true);
                 btn5.setForeground(Color.decode("#132c4c"));
+                
+                // comment
+                tabBooking = new TabbedPane();
+                tabBooking.setFont(new Font("Tahoma", Font.BOLD, 12));
+                tabBooking.setBorder(BorderFactory.createEmptyBorder());
+                Center.removeAll();
+                Center.setLayout(new BorderLayout());
+                Center.add(tabBooking,BorderLayout.CENTER);
+                initTabJpanelBar(tabBooking,4);
             }
         });
         btn5.addActionListener(new ActionListener() {
@@ -534,28 +554,41 @@ public class FrMain extends javax.swing.JFrame implements MouseListener,ActionLi
                 btn3.setForeground(Color.decode("#132c4c"));
                 btn4.setEnabled(true);
                 btn4.setForeground(Color.decode("#132c4c"));
+                
+                // comment
+                tabService = new TabbedPane();
+                tabService.setFont(new Font("Tahoma", Font.BOLD, 12));
+                tabService.setBorder(BorderFactory.createEmptyBorder());
+                Center.removeAll();
+                Center.setLayout(new BorderLayout());
+                Center.add(tabService,BorderLayout.CENTER);
+                initTabJpanelBar(tabService,5);
             }
         });
     }
 
     private void initCenter() {
-        tabService = new JTabbedPane();
-        tabService.setFont(new Font("Tahoma", Font.BOLD, 12));
-        tabService.setBorder(BorderFactory.createEmptyBorder());
+        tabHome = new JTabbedPane();
+        tabHome.setFont(new Font("Tahoma", Font.BOLD, 12));
+        tabHome.setBorder(BorderFactory.createEmptyBorder());
         Center.setLayout(new BorderLayout());
-        Center.add(tabService,BorderLayout.CENTER);
-        initTabJpanelBar(tabService,1);
+        Center.add(tabHome,BorderLayout.CENTER);
+        initTabJpanelBar(tabHome,1);
     }
 
     private void initTabJpanelBar(JTabbedPane tab,int select) {
         if(select==1){
-            tab.add("<html><p style=\"color:#88551a\">Sử dụng dịch vụ</p></html>",new PnService());
+            tab.add("<html><p style=\"color:#88551a\">Sử dụng dịch vụ</p></html>",new PnHome());
         }else if(select==2){
-            tab.add("<html><p style=\"color:#88551a\">Quản lý phòng</p></html>",new PnRoom());
-            tab.add("<html><p style=\"color:#88551a\">Quản lý tầng</p></html>",new PnFloor());
+            tab.add("<html><p style=\"color:#88551a\">Quản lý phòng&nbsp;&nbsp;&nbsp;&nbsp;</p></html>",new PnRoom());
+            tab.add("<html><p style=\"color:#88551a\">Quản lý tầng&nbsp;&nbsp;&nbsp;&nbsp;</p></html>",new PnFloor());
         }else if(select==3){
-            tab.add("<html><p style=\"color:#88551a\">Quản lý khách hàng</p></html>",new PnUser());
-            tab.add("<html><p style=\"color:#88551a\">Quản lý loại thành viên</p></html>",new PnTypeUser());
+            tab.add("<html><p style=\"color:#88551a\">Quản lý khách hàng&nbsp;&nbsp;&nbsp;&nbsp;</p></html>",new PnUser());
+            tab.add("<html><p style=\"color:#88551a\">Quản lý loại thành viên&nbsp;&nbsp;&nbsp;&nbsp;</p></html>",new PnTypeUser());
+        }else if(select==4){
+            tab.add("<html><p style=\"color:#88551a\">Quản lý đặt phòng&nbsp;&nbsp;&nbsp;&nbsp;</p></html>",new PnBookRoom());
+        }else if(select==5){
+            tab.add("<html><p style=\"color:#88551a\">Quản lý dịch vụ&nbsp;&nbsp;&nbsp;&nbsp;</p></html>",new PnBookRoom());
         }
     }
 
