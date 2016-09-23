@@ -6,10 +6,12 @@
 package view;
 
 import Utils.MenuBar;
+import Utils.Panel;
 import Utils.TabbedPane;
 import Utils.ToolBar;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,6 +23,7 @@ import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JTabbedPane;
@@ -58,6 +61,11 @@ public class FrMain extends javax.swing.JFrame implements MouseListener,ActionLi
     private JButton btn4;
     private JButton btn5;
     
+    private JLabel txtWelcome;
+    private JLabel txtAdmin;
+    
+    private Panel bottom;
+    
     public FrMain() {
         initComponents();
         this.setTitle("PHẦN MỀM QUẢN LÝ NHÀ NGHĨ KHÁCH SẠN - LUISNGUYEN");
@@ -66,7 +74,7 @@ public class FrMain extends javax.swing.JFrame implements MouseListener,ActionLi
         initMenuItem();
         initToolbar();
         initCenter();
-        
+        initBottom();
     }
 
     /**
@@ -588,12 +596,30 @@ public class FrMain extends javax.swing.JFrame implements MouseListener,ActionLi
         }else if(select==4){
             tab.add("<html><p style=\"color:#88551a\">Quản lý đặt phòng&nbsp;&nbsp;&nbsp;&nbsp;</p></html>",new PnBookRoom());
         }else if(select==5){
-            tab.add("<html><p style=\"color:#88551a\">Quản lý dịch vụ&nbsp;&nbsp;&nbsp;&nbsp;</p></html>",new PnBookRoom());
+            tab.add("<html><p style=\"color:#88551a\">Quản lý dịch vụ&nbsp;&nbsp;&nbsp;&nbsp;</p></html>",new PnService());
         }
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         
+    }
+
+    private void initBottom() {
+        
+        bottom = new Panel();
+        bottom.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        
+        txtWelcome = new JLabel();
+        txtWelcome.setFont(new Font("Tahoma", Font.BOLD, 12)); 
+        txtWelcome.setText("Tài khoản: ");
+        bottom.add(txtWelcome);
+        
+        txtAdmin = new JLabel();
+        txtAdmin.setFont(new Font("Tahoma", Font.BOLD, 12)); 
+        txtAdmin.setText("Admin");
+        bottom.add(txtAdmin);
+
+        Bottom.add(bottom, BorderLayout.CENTER);
     }
 }
