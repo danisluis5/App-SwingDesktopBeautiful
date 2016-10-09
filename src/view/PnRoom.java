@@ -8,6 +8,8 @@ package view;
 import controller.ControllerLoaiPhong;
 import controller.ControllerRoom;
 import controller.ControllerTang;
+import model.ModelLoaiPhong;
+import model.ModelTang;
 import render.TinhTrangComboboxModel;
 import render.TrangThaiComboboxModel;
 
@@ -294,10 +296,10 @@ public class PnRoom extends javax.swing.JPanel {
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel12.setText("Chọn loại phòng:");
 
-        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "BÌNH THƯƠNG", "BẢO TRÌ" }));
         jComboBox5.setPreferredSize(new java.awt.Dimension(56, 24));
 
-        jComboBox6.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox6.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "THUÊ ", "CHƯA THUÊ" }));
         jComboBox6.setPreferredSize(new java.awt.Dimension(56, 24));
 
         cbLoaiPhongF.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -459,7 +461,7 @@ public class PnRoom extends javax.swing.JPanel {
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnNhapLaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhapLaiActionPerformed
-        // TODO add your handling code here:
+        resetForm();
     }//GEN-LAST:event_btnNhapLaiActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
@@ -519,6 +521,7 @@ public class PnRoom extends javax.swing.JPanel {
         int row = tbMain.getSelectedRow();
         String id = tbMain.getValueAt(row, 0).toString();
         String name = tbMain.getValueAt(row, 1).toString();
+        
         cbTinhTrang.setModel(new TinhTrangComboboxModel((String) tbMain.getValueAt(row, 2)));
         cbTrangThai.setModel(new TrangThaiComboboxModel((String) tbMain.getValueAt(row, 3)));
         
@@ -526,6 +529,14 @@ public class PnRoom extends javax.swing.JPanel {
         tfSoPhong.setText(name);
         tfGhiChu.setText(tbMain.getValueAt(row, 4).toString());
         
-        
+        controllerLoaiPhong.loadCategory(this.cbLoaiPhong, false, new ModelLoaiPhong().getItemName(tbMain.getValueAt(row, 5).toString()));
+        controllerTang.loadCategory(this.cbTang, false, new ModelTang().getItemName(Integer.parseInt(tbMain.getValueAt(row, 6).toString())));
+    }
+    private void resetForm(){
+        tfId.setText("");
+        tfSoPhong.setText("");
+        tfGhiChu.setText("");
+        controllerTang.loadCategory(this.cbTang, false, null);
+        controllerLoaiPhong.loadCategory(this.cbLoaiPhong, false, null);
     }
 }

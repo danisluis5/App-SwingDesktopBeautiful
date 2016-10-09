@@ -5,34 +5,39 @@
  */
 package controller;
 
-import bean.TypeRoom;
+import bean.Room;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.util.ArrayList;
-import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 import model.ModelLoaiPhong;
-import render.LoaiPhongComboboxModel;
+import model.ModelRoom;
+import model.ModelTang;
 
 /**
  *
  * @author vuongluis
  */
-public class ControllerLoaiPhong extends AbstractTableModel{
+public class ControllerKhachHang extends AbstractTableModel{
     
     private JTable table;
-    private ModelLoaiPhong model;
+    private ModelRoom model;
     private String[] cols = {
         "<html><center><p style='color:#00434a;font-weight:bold;'>STT</p></center></html>",
+        "<html><center><p style='color:#00434a;font-weight:bold;'>Số Phòng</p></center></html>",
+        "<html><center><p style='color:#00434a;font-weight:bold;'>Tình Trạng</p></center></html>",
+        "<html><center><p style='color:#00434a;font-weight:bold;'>Trạng Thái</p></center></html>",
+        "<html><center><p style='color:#00434a;font-weight:bold;'>Ghi Chú</p></center></html>",
         "<html><center><p style='color:#00434a;font-weight:bold;'>Tên Phòng</p></center></html>",
-        "<html><center><p style='color:#00434a;font-weight:bold;'>Đơn Giá</p></center></html>"
+        "<html><center><p style='color:#00434a;font-weight:bold;'>Tầng</p></center></html>"
+            
     };
-    private ArrayList<TypeRoom> alItem = new ArrayList<TypeRoom>();
+    private ArrayList<Room> alItem = new ArrayList<Room>();
     
-    public ControllerLoaiPhong(JTable table){
+    public ControllerKhachHang(JTable table){
         this.table = table;
-        model = new ModelLoaiPhong();
+        model = new ModelRoom();
         alItem = model.getList();
     }
     @Override
@@ -52,17 +57,29 @@ public class ControllerLoaiPhong extends AbstractTableModel{
     
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        TypeRoom Item = alItem.get(rowIndex);
+        Room Item = alItem.get(rowIndex);
         Object object = null;
         switch(columnIndex){
             case 0:
-                object = Item.getMaLP();
+                object = Item.getMaP();
                 break;
             case 1:
-                object = Item.getTenPhong();
+                object = Item.getSoPhong();
                 break;
             case 2:
-                object = Item.getDonGia();
+                object = Item.getTinhtrang();
+                break;
+            case 3:
+                object = Item.getTrangThai();
+                break;
+            case 4:
+                object = Item.getGhiChu();
+                break;
+            case 5:
+                object = new ModelLoaiPhong().getItem(Item.getMaLP()).getTenPhong();
+                break;
+            case 6:
+                object = new ModelTang().getItem(Item.getMaLP()).getTang();
                 break;
         }
         return object;
@@ -72,7 +89,13 @@ public class ControllerLoaiPhong extends AbstractTableModel{
     public Class<?> getColumnClass(int columnIndex) {
         if(columnIndex == 0){
             return Integer.class;
-        }else if(columnIndex == 2){
+        }else if(columnIndex == 1){
+            return Integer.class;
+        }else if(columnIndex == 5){
+            return Integer.class;
+        }else if(columnIndex == 6){
+            return Integer.class;
+        }else if(columnIndex == 7){
             return Integer.class;
         }
         return super.getColumnClass(columnIndex); 
@@ -93,25 +116,29 @@ public class ControllerLoaiPhong extends AbstractTableModel{
         table.setRowHeight(26);
         table.setFont(new Font("Tahoma",Font.PLAIN, 12));
         
-        table.getColumnModel().getColumn(0).setPreferredWidth(100);
-        table.getColumnModel().getColumn(1).setPreferredWidth(100);
-        table.getColumnModel().getColumn(2).setPreferredWidth(100);
+        table.getColumnModel().getColumn(0).setPreferredWidth(40);
+        table.getColumnModel().getColumn(1).setPreferredWidth(80);
+        table.getColumnModel().getColumn(2).setPreferredWidth(80);
+        table.getColumnModel().getColumn(3).setPreferredWidth(80);
+        table.getColumnModel().getColumn(4).setPreferredWidth(260);
+        table.getColumnModel().getColumn(5).setPreferredWidth(80);
+        table.getColumnModel().getColumn(6).setPreferredWidth(80);
     }
 
-    public int addItem(TypeRoom obj) {
+    public int addItem(Room obj) {
         // thêm vào database
         int result = model.addItem(obj);
         // thêm vào model
-        obj.setMaLP(result);
+        obj.setMaP(result);
         alItem.add(obj);
         this.fireTableDataChanged();
         table.scrollRectToVisible(table.getCellRect(this.getRowCount()-1, 0, true));
         return result;
     }
 
-    public int deleteItem(TypeRoom obj, int row) {
+    public int deleteItem(Room obj, int row) {
         // xóa trong database
-        int result = model.delItem(obj.getMaLP());
+        int result = model.delItem(obj.getMaP());
         // xóa trong model
         int rowmodel = table.convertRowIndexToModel(row);
         alItem.remove(rowmodel);
@@ -119,17 +146,17 @@ public class ControllerLoaiPhong extends AbstractTableModel{
         return result;
     }
 
-    public int editItem(TypeRoom obj, int row) {
+    public int editItem(Room obj, int row) {
         // sữa trong database
         int id = model.editItem(obj);
         // sữa trong model
-        obj.setMaLP(id);
+        obj.setMaP(id);
         int rowModel=table.convertRowIndexToModel(row);
         alItem.set(rowModel,obj);
         this.fireTableDataChanged();
         return id;
     }
-    public void loadCategory(JComboBox<TypeRoom> cbLoaiPhong, boolean isSearch, TypeRoom obj) {
-        cbLoaiPhong.setModel(new LoaiPhongComboboxModel(isSearch,obj));
-    }
+//    public void loadCategory(JComboBox<Category> cbDanhMuc, boolean isSearch, Category objCat) {
+//        cbDanhMuc.setModel(new RenderComboBoxModelCat(isSearch,objCat));
+//    }
 }

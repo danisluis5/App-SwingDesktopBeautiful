@@ -79,6 +79,28 @@ public class ModelLoaiPhong {
         }
         return c;
     }
+    
+    public TypeRoom getItemName(String temp) {
+        conn = lcdb.getConnectMySQL();
+        TypeRoom c = null;
+        String sql = "SELECT * FROM loaiphong WHERE tenphong = ? LIMIT 1";
+        try {
+            pst = conn.prepareStatement(sql);
+            pst.setString(1, temp);
+            rs = pst.executeQuery();
+            if (rs.next()) {
+                c = new TypeRoom(rs.getInt("malp"),rs.getString("tenphong"), rs.getInt("dongia"));
+            }
+        } catch (SQLException e) {
+        } finally {
+            try {
+                pst.close();
+                conn.close();
+            } catch (SQLException e) {
+            }
+        }
+        return c;
+    }
      
     public int addItem(TypeRoom item) {
         int result = 0;

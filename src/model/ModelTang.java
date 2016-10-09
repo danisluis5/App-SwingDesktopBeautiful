@@ -80,6 +80,28 @@ public class ModelTang {
         return c;
     }
      
+    public Floor getItemName(int tang) {
+        conn = lcdb.getConnectMySQL();
+        Floor c = null;
+        String sql = "SELECT * FROM tang WHERE tang = ? LIMIT 1";
+        try {
+            pst = conn.prepareStatement(sql);
+            pst.setInt(1, tang);
+            rs = pst.executeQuery();
+            if (rs.next()) {
+                c = new Floor(rs.getInt("mat"),rs.getInt("tang"), rs.getInt("sophong"));
+            }
+        } catch (SQLException e) {
+        } finally {
+            try {
+                pst.close();
+                conn.close();
+            } catch (SQLException e) {
+            }
+        }
+        return c;
+    }
+     
     public int addItem(Floor item) {
         int result = 0;
         conn = lcdb.getConnectMySQL();

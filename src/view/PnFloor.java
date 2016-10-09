@@ -5,6 +5,8 @@
  */
 package view;
 
+import controller.ControllerTang;
+
 /**
  *
  * @author vuongluis
@@ -14,8 +16,12 @@ public class PnFloor extends javax.swing.JPanel {
     /**
      * Creates new form PnFloor
      */
+    private ControllerTang controller;
+    
     public PnFloor() {
         initComponents();
+        controller = new ControllerTang(tbMain);
+        controller.loadTable();
     }
 
     /**
@@ -43,7 +49,7 @@ public class PnFloor extends javax.swing.JPanel {
         tfSoPhong = new javax.swing.JTextField();
         RightFloor = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbMain = new javax.swing.JTable();
 
         setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         setLayout(new java.awt.BorderLayout());
@@ -162,8 +168,8 @@ public class PnFloor extends javax.swing.JPanel {
 
         jScrollPane1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
-        jTable1.setAutoCreateRowSorter(true);
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbMain.setAutoCreateRowSorter(true);
+        tbMain.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -174,7 +180,17 @@ public class PnFloor extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        tbMain.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tbMainMousePressed(evt);
+            }
+        });
+        tbMain.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tbMainKeyReleased(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tbMain);
 
         RightFloor.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
@@ -182,6 +198,16 @@ public class PnFloor extends javax.swing.JPanel {
 
         add(room, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tbMainKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbMainKeyReleased
+        // TODO add your handling code here:
+        setForm();
+    }//GEN-LAST:event_tbMainKeyReleased
+
+    private void tbMainMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbMainMousePressed
+        // TODO add your handling code here:
+        setForm();
+    }//GEN-LAST:event_tbMainMousePressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -196,11 +222,28 @@ public class PnFloor extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JSplitPane room;
+    private javax.swing.JTable tbMain;
     private javax.swing.JTextField tfId;
     private javax.swing.JTextField tfSoPhong;
     private javax.swing.JTextField tfTang;
     // End of variables declaration//GEN-END:variables
+
+    private void setForm() {
+        int row = tbMain.getSelectedRow();
+        String id = tbMain.getValueAt(row, 0).toString();
+        String tang = tbMain.getValueAt(row, 1).toString();
+        String soPhong = tbMain.getValueAt(row, 2).toString();
+        
+        tfId.setText(id);
+        tfTang.setText(tang);
+        tfSoPhong.setText(soPhong);
+    }
+    
+    public void resetForm(){
+        tfId.setText("");
+        tfTang.setText("");
+        tfSoPhong.setText("");
+    }
 }
