@@ -5,17 +5,36 @@
  */
 package view;
 
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JScrollPane;
+import javax.swing.border.LineBorder;
+
 /**
  *
  * @author vuongluis
  */
 public class PnHome extends javax.swing.JPanel {
-
+    
+    private int soPhong = 70;
+    private JScrollPane scrollPane = new JScrollPane();
     /**
      * Creates new form pnService
      */
     public PnHome() {
         initComponents();
+        this.setLayout(new FlowLayout(FlowLayout.LEFT));
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPane.setViewportBorder(new LineBorder(Color.RED));
+        
+        viewRoom();
     }
 
     /**
@@ -27,7 +46,8 @@ public class PnHome extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setBackground(new java.awt.Color(153, 153, 255));
+        setBackground(new java.awt.Color(242, 242, 242));
+        setName("Home"); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -41,7 +61,30 @@ public class PnHome extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-
+    private void viewRoom() {
+        for(int i = 0; i < soPhong; i++){
+            JButton btnRoom = new JButton();
+            btnRoom.setFont(new Font("Tahoma",1,13));
+            btnRoom.setForeground(new Color(51, 153, 0));
+            btnRoom.setIcon(new ImageIcon(getClass().getResource("/images/heya.png")));
+            btnRoom.setText("Phòng "+i);
+            btnRoom.setBorder(BorderFactory.createEmptyBorder());
+            btnRoom.setFocusable(false);
+            btnRoom.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+            btnRoom.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+            btnRoom.setName(i+"");
+            btnRoom.setOpaque(false);
+            btnRoom.setContentAreaFilled(false);
+            btnRoom.setBorderPainted(false); 
+            this.add(btnRoom);
+            btnRoom.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    btnRoom.setIcon(new ImageIcon(getClass().getResource("/images/heyaactive.png")));
+                }
+            });
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }

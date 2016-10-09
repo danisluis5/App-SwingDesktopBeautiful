@@ -5,6 +5,12 @@
  */
 package view;
 
+import controller.ControllerLoaiPhong;
+import controller.ControllerRoom;
+import controller.ControllerTang;
+import render.TinhTrangComboboxModel;
+import render.TrangThaiComboboxModel;
+
 /**
  *
  * @author vuongluis
@@ -14,8 +20,25 @@ public class PnRoom extends javax.swing.JPanel {
     /**
      * Creates new form pnRoom
      */
+    private ControllerRoom controller;
+    private ControllerTang controllerTang;
+    private ControllerLoaiPhong controllerLoaiPhong;
+    
     public PnRoom() {
         initComponents();
+        controller = new ControllerRoom(tbMain);
+        controllerTang = new ControllerTang(tbMain);
+        controllerLoaiPhong = new ControllerLoaiPhong(tbMain);
+        
+        controller.loadTable();
+        controllerTang.loadCategory(this.cbTang, false, null);
+        controllerTang.loadCategory(this.cbTangF, true, null);
+        controllerLoaiPhong.loadCategory(this.cbLoaiPhong, false, null);
+        controllerLoaiPhong.loadCategory(this.cbLoaiPhongF, true, null);
+        
+        this.cbTinhTrang.setModel(new TinhTrangComboboxModel());
+        this.cbTrangThai.setModel(new TrangThaiComboboxModel());
+        
     }
 
     /**
@@ -36,14 +59,19 @@ public class PnRoom extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        tfSoPhong = new javax.swing.JTextField();
+        tfId = new javax.swing.JTextField();
+        cbTrangThai = new javax.swing.JComboBox<>();
+        cbLoaiPhong = new javax.swing.JComboBox();
+        cbTang = new javax.swing.JComboBox();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jComboBox4 = new javax.swing.JComboBox<>();
+        tfGhiChu = new javax.swing.JTextArea();
+        cbTinhTrang = new javax.swing.JComboBox();
+        jPanel6 = new javax.swing.JPanel();
+        btnThem = new javax.swing.JButton();
+        btnSua = new javax.swing.JButton();
+        btnNhapLai = new javax.swing.JButton();
+        btnXoa = new javax.swing.JButton();
         RightRoom = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -57,16 +85,16 @@ public class PnRoom extends javax.swing.JPanel {
         jLabel12 = new javax.swing.JLabel();
         jComboBox5 = new javax.swing.JComboBox<>();
         jComboBox6 = new javax.swing.JComboBox<>();
-        jComboBox7 = new javax.swing.JComboBox<>();
+        cbLoaiPhongF = new javax.swing.JComboBox();
         jLabel13 = new javax.swing.JLabel();
-        jComboBox8 = new javax.swing.JComboBox<>();
+        cbTangF = new javax.swing.JComboBox();
         jPanel5 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        closeF = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbMain = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(242, 242, 242));
         setLayout(new java.awt.BorderLayout());
@@ -95,7 +123,7 @@ public class PnRoom extends javax.swing.JPanel {
         jLabel4.setText("Trạng thái:");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel5.setText("Chọn loại phòng:");
+        jLabel5.setText("Loại phòng:");
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel6.setText("Chọn tầng:");
@@ -103,29 +131,69 @@ public class PnRoom extends javax.swing.JPanel {
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel7.setText("Ghi chú:");
 
-        jTextField1.setPreferredSize(new java.awt.Dimension(59, 24));
+        tfSoPhong.setPreferredSize(new java.awt.Dimension(59, 24));
 
-        jTextField2.setEditable(false);
-        jTextField2.setPreferredSize(new java.awt.Dimension(59, 24));
+        tfId.setEditable(false);
+        tfId.setPreferredSize(new java.awt.Dimension(59, 24));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox1.setPreferredSize(new java.awt.Dimension(56, 24));
+        cbTrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbTrangThai.setPreferredSize(new java.awt.Dimension(56, 24));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox2.setPreferredSize(new java.awt.Dimension(56, 24));
+        cbLoaiPhong.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbLoaiPhong.setPreferredSize(new java.awt.Dimension(56, 24));
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox3.setPreferredSize(new java.awt.Dimension(56, 24));
+        cbTang.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbTang.setPreferredSize(new java.awt.Dimension(56, 24));
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setLineWrap(true);
-        jTextArea1.setRows(5);
-        jTextArea1.setWrapStyleWord(true);
-        jScrollPane2.setViewportView(jTextArea1);
+        tfGhiChu.setColumns(20);
+        tfGhiChu.setLineWrap(true);
+        tfGhiChu.setRows(5);
+        tfGhiChu.setWrapStyleWord(true);
+        jScrollPane2.setViewportView(tfGhiChu);
 
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox4.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        jComboBox4.setPreferredSize(new java.awt.Dimension(56, 24));
+        cbTinhTrang.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbTinhTrang.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        cbTinhTrang.setPreferredSize(new java.awt.Dimension(56, 24));
+
+        btnThem.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnThem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/add-icon.gif"))); // NOI18N
+        btnThem.setText("Thêm");
+        btnThem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemActionPerformed(evt);
+            }
+        });
+        jPanel6.add(btnThem);
+
+        btnSua.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnSua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/edit-icon.gif"))); // NOI18N
+        btnSua.setText("Sửa");
+        btnSua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSuaActionPerformed(evt);
+            }
+        });
+        jPanel6.add(btnSua);
+
+        btnNhapLai.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnNhapLai.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/edit.gif"))); // NOI18N
+        btnNhapLai.setText("Nhập lại");
+        btnNhapLai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNhapLaiActionPerformed(evt);
+            }
+        });
+        jPanel6.add(btnNhapLai);
+
+        btnXoa.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/del.gif"))); // NOI18N
+        btnXoa.setText("Xóa");
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaActionPerformed(evt);
+            }
+        });
+        jPanel6.add(btnXoa);
 
         javax.swing.GroupLayout LeftRoomLayout = new javax.swing.GroupLayout(LeftRoom);
         LeftRoom.setLayout(LeftRoomLayout);
@@ -144,17 +212,18 @@ public class PnRoom extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(LeftRoomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(LeftRoomLayout.createSequentialGroup()
-                        .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
+                        .addComponent(tfId, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(70, 70, 70))
-                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jComboBox3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jComboBox4, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(tfSoPhong, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cbTrangThai, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cbLoaiPhong, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cbTang, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cbTinhTrang, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(46, 46, 46))
             .addGroup(LeftRoomLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane2))
+            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         LeftRoomLayout.setVerticalGroup(
             LeftRoomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -162,31 +231,33 @@ public class PnRoom extends javax.swing.JPanel {
                 .addGap(28, 28, 28)
                 .addGroup(LeftRoomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(17, 17, 17)
                 .addGroup(LeftRoomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfSoPhong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(17, 17, 17)
                 .addGroup(LeftRoomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbTinhTrang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(17, 17, 17)
                 .addGroup(LeftRoomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(17, 17, 17)
                 .addGroup(LeftRoomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbLoaiPhong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(17, 17, 17)
                 .addGroup(LeftRoomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbTang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(17, 17, 17)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jSplitPane1.setLeftComponent(LeftRoom);
@@ -229,14 +300,14 @@ public class PnRoom extends javax.swing.JPanel {
         jComboBox6.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBox6.setPreferredSize(new java.awt.Dimension(56, 24));
 
-        jComboBox7.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox7.setPreferredSize(new java.awt.Dimension(56, 24));
+        cbLoaiPhongF.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbLoaiPhongF.setPreferredSize(new java.awt.Dimension(56, 24));
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel13.setText("Chọn tầng:");
 
-        jComboBox8.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox8.setPreferredSize(new java.awt.Dimension(56, 24));
+        cbTangF.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbTangF.setPreferredSize(new java.awt.Dimension(56, 24));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -258,15 +329,15 @@ public class PnRoom extends javax.swing.JPanel {
                         .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox5, 0, 1, Short.MAX_VALUE)
-                            .addComponent(jComboBox7, 0, 1, Short.MAX_VALUE))
+                            .addComponent(jComboBox5, 0, 267, Short.MAX_VALUE)
+                            .addComponent(cbLoaiPhongF, 0, 1, Short.MAX_VALUE))
                         .addGap(24, 24, 24)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox8, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbTangF, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jComboBox6, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(22, 22, 22))
         );
@@ -288,9 +359,9 @@ public class PnRoom extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
-                    .addComponent(jComboBox7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbLoaiPhongF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel13)
-                    .addComponent(jComboBox8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbTangF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -310,15 +381,15 @@ public class PnRoom extends javax.swing.JPanel {
         jButton2.setText("Nhập lại");
         jPanel5.add(jButton2);
 
-        jButton3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iClose.png"))); // NOI18N
-        jButton3.setText("Đóng");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        closeF.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        closeF.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iClose.png"))); // NOI18N
+        closeF.setText("Đóng");
+        closeF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                closeFActionPerformed(evt);
             }
         });
-        jPanel5.add(jButton3);
+        jPanel5.add(closeF);
 
         jPanel3.add(jPanel5, java.awt.BorderLayout.EAST);
 
@@ -331,8 +402,8 @@ public class PnRoom extends javax.swing.JPanel {
 
         jScrollPane1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
-        jTable1.setAutoCreateRowSorter(true);
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbMain.setAutoCreateRowSorter(true);
+        tbMain.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -343,7 +414,17 @@ public class PnRoom extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        tbMain.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tbMainMousePressed(evt);
+            }
+        });
+        tbMain.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tbMainKeyReleased(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tbMain);
 
         jPanel2.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
@@ -354,25 +435,56 @@ public class PnRoom extends javax.swing.JPanel {
         add(jSplitPane1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void closeFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeFActionPerformed
         jPanel1.setVisible(false);
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_closeFActionPerformed
+
+    private void tbMainMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbMainMousePressed
+        // TODO add your handling code here:
+        setForm();
+    }//GEN-LAST:event_tbMainMousePressed
+
+    private void tbMainKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbMainKeyReleased
+        // TODO add your handling code here:
+        setForm();
+    }//GEN-LAST:event_tbMainKeyReleased
+
+    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btnThemActionPerformed
+
+    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSuaActionPerformed
+
+    private void btnNhapLaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhapLaiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnNhapLaiActionPerformed
+
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnXoaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel LeftRoom;
     private javax.swing.JPanel RightRoom;
+    private javax.swing.JButton btnNhapLai;
+    private javax.swing.JButton btnSua;
+    private javax.swing.JButton btnThem;
+    private javax.swing.JButton btnXoa;
+    private javax.swing.JComboBox cbLoaiPhong;
+    private javax.swing.JComboBox cbLoaiPhongF;
+    private javax.swing.JComboBox cbTang;
+    private javax.swing.JComboBox cbTangF;
+    private javax.swing.JComboBox cbTinhTrang;
+    private javax.swing.JComboBox<String> cbTrangThai;
+    private javax.swing.JButton closeF;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
-    private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JComboBox<String> jComboBox5;
     private javax.swing.JComboBox<String> jComboBox6;
-    private javax.swing.JComboBox<String> jComboBox7;
-    private javax.swing.JComboBox<String> jComboBox8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -391,14 +503,29 @@ public class PnRoom extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSplitPane jSplitPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
+    private javax.swing.JTable tbMain;
+    private javax.swing.JTextArea tfGhiChu;
+    private javax.swing.JTextField tfId;
+    private javax.swing.JTextField tfSoPhong;
     // End of variables declaration//GEN-END:variables
+
+    private void setForm() {
+        int row = tbMain.getSelectedRow();
+        String id = tbMain.getValueAt(row, 0).toString();
+        String name = tbMain.getValueAt(row, 1).toString();
+        cbTinhTrang.setModel(new TinhTrangComboboxModel((String) tbMain.getValueAt(row, 2)));
+        cbTrangThai.setModel(new TrangThaiComboboxModel((String) tbMain.getValueAt(row, 3)));
+        
+        tfId.setText(id);
+        tfSoPhong.setText(name);
+        tfGhiChu.setText(tbMain.getValueAt(row, 4).toString());
+        
+        
+    }
 }
