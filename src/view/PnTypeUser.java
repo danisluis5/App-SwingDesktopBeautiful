@@ -5,17 +5,22 @@
  */
 package view;
 
+import controller.ControllerLoaiThanhVien;
+
 /**
  *
  * @author vuongluis
  */
 public class PnTypeUser extends javax.swing.JPanel {
 
+    private ControllerLoaiThanhVien controller;
     /**
      * Creates new form PnTypeUser
      */
     public PnTypeUser() {
         initComponents();
+        controller = new ControllerLoaiThanhVien(tbMain);
+        controller.loadTable();
     }
 
     /**
@@ -43,7 +48,7 @@ public class PnTypeUser extends javax.swing.JPanel {
         jTextField3 = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbMain = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(242, 242, 242));
         setLayout(new java.awt.BorderLayout());
@@ -62,7 +67,7 @@ public class PnTypeUser extends javax.swing.JPanel {
         jLabel2.setText("Tên thành viên:");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel3.setText("Đơn giá:");
+        jLabel3.setText("Mã thành viên:");
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tìm kiếm", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 1, 12), new java.awt.Color(0, 102, 255))); // NOI18N
 
@@ -91,7 +96,7 @@ public class PnTypeUser extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(34, 34, 34))
-            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -157,8 +162,8 @@ public class PnTypeUser extends javax.swing.JPanel {
 
         jScrollPane1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
-        jTable1.setAutoCreateRowSorter(true);
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbMain.setAutoCreateRowSorter(true);
+        tbMain.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -169,7 +174,7 @@ public class PnTypeUser extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tbMain);
 
         jPanel1.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
@@ -192,10 +197,10 @@ public class PnTypeUser extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSplitPane jSplitPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
+    private javax.swing.JTable tbMain;
     // End of variables declaration//GEN-END:variables
 }

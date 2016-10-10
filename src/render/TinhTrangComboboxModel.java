@@ -19,13 +19,13 @@ public class TinhTrangComboboxModel implements ComboBoxModel{
     private Object object = new Object();
     
     public TinhTrangComboboxModel(){
-        alItems.add("THUÊ");
+        alItems.add("ĐÃ THUÊ");
         alItems.add("CHƯA THUÊ");
         object = alItems.get(0);
     }
     
     public TinhTrangComboboxModel(String temp){
-        alItems.add("THUÊ");
+        alItems.add("ĐÃ THUÊ");
         alItems.add("CHƯA THUÊ");
         switch(temp){
             case "THUÊ":

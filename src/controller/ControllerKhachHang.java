@@ -5,15 +5,17 @@
  */
 package controller;
 
+import bean.KhachHang;
 import bean.Room;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
-import model.ModelLoaiPhong;
-import model.ModelRoom;
-import model.ModelTang;
+import model.ModelKhachHang;
+import model.ModelLoaiThanhVien;
 
 /**
  *
@@ -22,22 +24,26 @@ import model.ModelTang;
 public class ControllerKhachHang extends AbstractTableModel{
     
     private JTable table;
-    private ModelRoom model;
+    private ModelKhachHang model;
     private String[] cols = {
         "<html><center><p style='color:#00434a;font-weight:bold;'>STT</p></center></html>",
-        "<html><center><p style='color:#00434a;font-weight:bold;'>Số Phòng</p></center></html>",
-        "<html><center><p style='color:#00434a;font-weight:bold;'>Tình Trạng</p></center></html>",
-        "<html><center><p style='color:#00434a;font-weight:bold;'>Trạng Thái</p></center></html>",
-        "<html><center><p style='color:#00434a;font-weight:bold;'>Ghi Chú</p></center></html>",
-        "<html><center><p style='color:#00434a;font-weight:bold;'>Tên Phòng</p></center></html>",
-        "<html><center><p style='color:#00434a;font-weight:bold;'>Tầng</p></center></html>"
+        "<html><center><p style='color:#00434a;font-weight:bold;'>Tên Khách Hàng</p></center></html>",
+        "<html><center><p style='color:#00434a;font-weight:bold;'>Giới Tính</p></center></html>",
+        "<html><center><p style='color:#00434a;font-weight:bold;'>Ngày Sinh</p></center></html>",
+        "<html><center><p style='color:#00434a;font-weight:bold;'>Số CMT</p></center></html>",
+        "<html><center><p style='color:#00434a;font-weight:bold;'>Email</p></center></html>",
+        "<html><center><p style='color:#00434a;font-weight:bold;'>Địa Chỉ</p></center></html>",
+        "<html><center><p style='color:#00434a;font-weight:bold;'>Nghề Nghiệp</p></center></html>",
+        "<html><center><p style='color:#00434a;font-weight:bold;'>Số Điện Thoại</p></center></html>",
+        "<html><center><p style='color:#00434a;font-weight:bold;'>Quốc Tịch</p></center></html>",
+        "<html><center><p style='color:#00434a;font-weight:bold;'>Loại Thành Viên</p></center></html>"
             
     };
-    private ArrayList<Room> alItem = new ArrayList<Room>();
+    private ArrayList<KhachHang> alItem = new ArrayList<KhachHang>();
     
     public ControllerKhachHang(JTable table){
         this.table = table;
-        model = new ModelRoom();
+        model = new ModelKhachHang();
         alItem = model.getList();
     }
     @Override
@@ -57,29 +63,41 @@ public class ControllerKhachHang extends AbstractTableModel{
     
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Room Item = alItem.get(rowIndex);
+        KhachHang Item = alItem.get(rowIndex);
         Object object = null;
         switch(columnIndex){
             case 0:
-                object = Item.getMaP();
+                object = Item.getMaKH();
                 break;
             case 1:
-                object = Item.getSoPhong();
+                object = Item.getTenKhachHang();
                 break;
             case 2:
-                object = Item.getTinhtrang();
+                object = Item.getGioiTinh();
                 break;
             case 3:
-                object = Item.getTrangThai();
+                object = new SimpleDateFormat("dd/MM/yyyy").format(Item.getNgaySinh());
                 break;
             case 4:
-                object = Item.getGhiChu();
+                object = Item.getSoCMT();
                 break;
             case 5:
-                object = new ModelLoaiPhong().getItem(Item.getMaLP()).getTenPhong();
+                object = Item.getThuDienTu();
                 break;
             case 6:
-                object = new ModelTang().getItem(Item.getMaLP()).getTang();
+                object = Item.getDiaChi();
+                break;
+            case 7:
+                object = Item.getNgheNghiep();
+                break;
+            case 8:
+                object = Item.getSoDienThoai();
+                break;
+            case 9:
+                object = Item.getQuocTich();
+                break;
+            case 10:
+                object = new ModelLoaiThanhVien().getItem(Item.getMaTV()).getTenThanhVien();
                 break;
         }
         return object;
@@ -88,14 +106,6 @@ public class ControllerKhachHang extends AbstractTableModel{
     @Override
     public Class<?> getColumnClass(int columnIndex) {
         if(columnIndex == 0){
-            return Integer.class;
-        }else if(columnIndex == 1){
-            return Integer.class;
-        }else if(columnIndex == 5){
-            return Integer.class;
-        }else if(columnIndex == 6){
-            return Integer.class;
-        }else if(columnIndex == 7){
             return Integer.class;
         }
         return super.getColumnClass(columnIndex); 
@@ -117,19 +127,23 @@ public class ControllerKhachHang extends AbstractTableModel{
         table.setFont(new Font("Tahoma",Font.PLAIN, 12));
         
         table.getColumnModel().getColumn(0).setPreferredWidth(40);
-        table.getColumnModel().getColumn(1).setPreferredWidth(80);
-        table.getColumnModel().getColumn(2).setPreferredWidth(80);
+        table.getColumnModel().getColumn(1).setPreferredWidth(160);
+        table.getColumnModel().getColumn(2).setPreferredWidth(40);
         table.getColumnModel().getColumn(3).setPreferredWidth(80);
-        table.getColumnModel().getColumn(4).setPreferredWidth(260);
-        table.getColumnModel().getColumn(5).setPreferredWidth(80);
-        table.getColumnModel().getColumn(6).setPreferredWidth(80);
+        table.getColumnModel().getColumn(4).setPreferredWidth(60);
+        table.getColumnModel().getColumn(5).setPreferredWidth(100);
+        table.getColumnModel().getColumn(6).setPreferredWidth(200);
+        table.getColumnModel().getColumn(7).setPreferredWidth(100);
+        table.getColumnModel().getColumn(8).setPreferredWidth(100);
+        table.getColumnModel().getColumn(9).setPreferredWidth(60);
+        table.getColumnModel().getColumn(10).setPreferredWidth(100);
     }
 
-    public int addItem(Room obj) {
+    public int addItem(KhachHang obj) {
         // thêm vào database
         int result = model.addItem(obj);
         // thêm vào model
-        obj.setMaP(result);
+        obj.setMaKH(result);
         alItem.add(obj);
         this.fireTableDataChanged();
         table.scrollRectToVisible(table.getCellRect(this.getRowCount()-1, 0, true));
@@ -146,17 +160,14 @@ public class ControllerKhachHang extends AbstractTableModel{
         return result;
     }
 
-    public int editItem(Room obj, int row) {
+    public int editItem(KhachHang obj, int row) {
         // sữa trong database
         int id = model.editItem(obj);
         // sữa trong model
-        obj.setMaP(id);
+        obj.setMaKH(id);
         int rowModel=table.convertRowIndexToModel(row);
         alItem.set(rowModel,obj);
         this.fireTableDataChanged();
         return id;
     }
-//    public void loadCategory(JComboBox<Category> cbDanhMuc, boolean isSearch, Category objCat) {
-//        cbDanhMuc.setModel(new RenderComboBoxModelCat(isSearch,objCat));
-//    }
 }

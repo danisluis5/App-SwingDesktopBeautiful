@@ -111,6 +111,7 @@ public class PnRoom extends javax.swing.JPanel {
         LeftRoom.setBackground(new java.awt.Color(242, 242, 242));
         LeftRoom.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin chi tiết phòng", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 1, 12), new java.awt.Color(0, 102, 255))); // NOI18N
         LeftRoom.setMinimumSize(new java.awt.Dimension(325, 478));
+        LeftRoom.setPreferredSize(new java.awt.Dimension(500, 538));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel1.setText("Số thứ tự:");
@@ -225,7 +226,7 @@ public class PnRoom extends javax.swing.JPanel {
             .addGroup(LeftRoomLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane2))
-            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
         );
         LeftRoomLayout.setVerticalGroup(
             LeftRoomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -296,10 +297,10 @@ public class PnRoom extends javax.swing.JPanel {
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel12.setText("Chọn loại phòng:");
 
-        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "BÌNH THƯƠNG", "BẢO TRÌ" }));
+        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "BÌNH THƯỜNG", "BẢO TRÌ" }));
         jComboBox5.setPreferredSize(new java.awt.Dimension(56, 24));
 
-        jComboBox6.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "THUÊ ", "CHƯA THUÊ" }));
+        jComboBox6.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ĐÃ THUÊ ", "CHƯA THUÊ" }));
         jComboBox6.setPreferredSize(new java.awt.Dimension(56, 24));
 
         cbLoaiPhongF.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -331,7 +332,7 @@ public class PnRoom extends javax.swing.JPanel {
                         .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox5, 0, 267, Short.MAX_VALUE)
+                            .addComponent(jComboBox5, 0, 1, Short.MAX_VALUE)
                             .addComponent(cbLoaiPhongF, 0, 1, Short.MAX_VALUE))
                         .addGap(24, 24, 24)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

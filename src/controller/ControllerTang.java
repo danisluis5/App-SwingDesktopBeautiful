@@ -25,7 +25,7 @@ public class ControllerTang extends AbstractTableModel{
     private ModelTang model;
     private String[] cols = {
         "<html><center><p style='color:#00434a;font-weight:bold;'>STT</p></center></html>",
-        "<html><center><p style='color:#00434a;font-weight:bold;'>Tầng</p></center></html>",
+        "<html><center><p style='color:#00434a;font-weight:bold;'>Tên Tầng</p></center></html>",
         "<html><center><p style='color:#00434a;font-weight:bold;'>Số Phòng</p></center></html>"
     };
     private ArrayList<Floor> alItem = new ArrayList<Floor>();
@@ -59,7 +59,7 @@ public class ControllerTang extends AbstractTableModel{
                 object = Item.getMaT();
                 break;
             case 1:
-                object = Item.getTang();
+                object = "TẦNG "+Item.getTang();
                 break;
             case 2:
                 object = Item.getSoPhong();
@@ -95,7 +95,7 @@ public class ControllerTang extends AbstractTableModel{
         table.setRowHeight(26);
         table.setFont(new Font("Tahoma",Font.PLAIN, 12));
         
-        table.getColumnModel().getColumn(0).setPreferredWidth(100);
+        table.getColumnModel().getColumn(0).setPreferredWidth(40);
         table.getColumnModel().getColumn(1).setPreferredWidth(100);
         table.getColumnModel().getColumn(2).setPreferredWidth(100);
     }

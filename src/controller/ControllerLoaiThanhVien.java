@@ -5,35 +5,34 @@
  */
 package controller;
 
-import bean.TypeRoom;
+import bean.LoaiThanhVien;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.util.ArrayList;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
-import model.ModelLoaiPhong;
-import render.LoaiPhongComboboxModel;
+import model.ModelLoaiThanhVien;
+import render.LoaiThanhVienComboboxModel;
 
 /**
  *
  * @author vuongluis
  */
-public class ControllerLoaiPhong extends AbstractTableModel{
+public class ControllerLoaiThanhVien extends AbstractTableModel{
     
     private JTable table;
-    private ModelLoaiPhong model;
+    private ModelLoaiThanhVien model;
     private String[] cols = {
         "<html><center><p style='color:#00434a;font-weight:bold;'>STT</p></center></html>",
-        "<html><center><p style='color:#00434a;font-weight:bold;'>Tên Loại Phòng</p></center></html>",
-        "<html><center><p style='color:#00434a;font-weight:bold;'>Đơn Giá</p></center></html>",
-        "<html><center><p style='color:#00434a;font-weight:bold;'>Mô tả</p></center></html>"
+        "<html><center><p style='color:#00434a;font-weight:bold;'>Tên Loại Thành Viên</p></center></html>",
+        "<html><center><p style='color:#00434a;font-weight:bold;'>Mã Loại Thành Viên</p></center></html>"
     };
-    private ArrayList<TypeRoom> alItem = new ArrayList<TypeRoom>();
+    private ArrayList<LoaiThanhVien> alItem = new ArrayList<LoaiThanhVien>();
     
-    public ControllerLoaiPhong(JTable table){
+    public ControllerLoaiThanhVien(JTable table){
         this.table = table;
-        model = new ModelLoaiPhong();
+        model = new ModelLoaiThanhVien();
         alItem = model.getList();
     }
     @Override
@@ -53,20 +52,17 @@ public class ControllerLoaiPhong extends AbstractTableModel{
     
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        TypeRoom Item = alItem.get(rowIndex);
+        LoaiThanhVien Item = alItem.get(rowIndex);
         Object object = null;
         switch(columnIndex){
             case 0:
-                object = Item.getMaLP();
+                object = Item.getMatv();
                 break;
             case 1:
-                object = Item.getTenPhong();
+                object = Item.getTenThanhVien();
                 break;
             case 2:
-                object = Item.getDonGia();
-                break;
-            case 3:
-                object = Item.getMoTa();
+                object = Item.getMaVip();
                 break;
         }
         return object;
@@ -75,8 +71,6 @@ public class ControllerLoaiPhong extends AbstractTableModel{
     @Override
     public Class<?> getColumnClass(int columnIndex) {
         if(columnIndex == 0){
-            return Integer.class;
-        }else if(columnIndex == 2){
             return Integer.class;
         }
         return super.getColumnClass(columnIndex); 
@@ -97,26 +91,25 @@ public class ControllerLoaiPhong extends AbstractTableModel{
         table.setRowHeight(26);
         table.setFont(new Font("Tahoma",Font.PLAIN, 12));
         
-        table.getColumnModel().getColumn(0).setPreferredWidth(10);
-        table.getColumnModel().getColumn(1).setPreferredWidth(20);
-        table.getColumnModel().getColumn(2).setPreferredWidth(20);
-        table.getColumnModel().getColumn(3).setPreferredWidth(500);
+        table.getColumnModel().getColumn(0).setPreferredWidth(100);
+        table.getColumnModel().getColumn(1).setPreferredWidth(100);
+        table.getColumnModel().getColumn(2).setPreferredWidth(100);
     }
 
-    public int addItem(TypeRoom obj) {
+    public int addItem(LoaiThanhVien obj) {
         // thêm vào database
         int result = model.addItem(obj);
         // thêm vào model
-        obj.setMaLP(result);
+        obj.setMatv(result);
         alItem.add(obj);
         this.fireTableDataChanged();
         table.scrollRectToVisible(table.getCellRect(this.getRowCount()-1, 0, true));
         return result;
     }
 
-    public int deleteItem(TypeRoom obj, int row) {
+    public int deleteItem(LoaiThanhVien obj, int row) {
         // xóa trong database
-        int result = model.delItem(obj.getMaLP());
+        int result = model.delItem(obj.getMatv());
         // xóa trong model
         int rowmodel = table.convertRowIndexToModel(row);
         alItem.remove(rowmodel);
@@ -124,17 +117,17 @@ public class ControllerLoaiPhong extends AbstractTableModel{
         return result;
     }
 
-    public int editItem(TypeRoom obj, int row) {
+    public int editItem(LoaiThanhVien obj, int row) {
         // sữa trong database
         int id = model.editItem(obj);
         // sữa trong model
-        obj.setMaLP(id);
+        obj.setMatv(id);
         int rowModel=table.convertRowIndexToModel(row);
         alItem.set(rowModel,obj);
         this.fireTableDataChanged();
         return id;
     }
-    public void loadCategory(JComboBox<TypeRoom> cbLoaiPhong, boolean isSearch, TypeRoom obj) {
-        cbLoaiPhong.setModel(new LoaiPhongComboboxModel(isSearch,obj));
+    public void loadLoaiThanhVien(JComboBox<LoaiThanhVien> cbLoaiPhong, boolean isSearch, LoaiThanhVien obj) {
+        cbLoaiPhong.setModel(new LoaiThanhVienComboboxModel(isSearch,obj));
     }
 }

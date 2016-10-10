@@ -5,7 +5,6 @@
  */
 package model;
 
-import bean.Floor;
 import bean.TypeRoom;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -42,7 +41,7 @@ public class ModelLoaiPhong {
             st = conn.createStatement();
             rs = st.executeQuery(sql);
             while (rs.next()) {
-                alItem.add(new TypeRoom(rs.getInt("malp"),rs.getString("tenphong"), rs.getInt("dongia")));
+                alItem.add(new TypeRoom(rs.getInt("malp"),rs.getString("tenphong"), rs.getInt("dongia"),rs.getString("mota")));
             }
         } catch (SQLException ex) {
             Logger.getLogger(ModelLoaiPhong.class.getName()).log(Level.SEVERE, null, ex);
@@ -67,7 +66,7 @@ public class ModelLoaiPhong {
             pst.setInt(1, cid);
             rs = pst.executeQuery();
             if (rs.next()) {
-                c = new TypeRoom(rs.getInt("malp"),rs.getString("tenphong"), rs.getInt("dongia"));
+                c = new TypeRoom(rs.getInt("malp"),rs.getString("tenphong"), rs.getInt("dongia"),rs.getString("mota"));
             }
         } catch (SQLException e) {
         } finally {
@@ -89,7 +88,7 @@ public class ModelLoaiPhong {
             pst.setString(1, temp);
             rs = pst.executeQuery();
             if (rs.next()) {
-                c = new TypeRoom(rs.getInt("malp"),rs.getString("tenphong"), rs.getInt("dongia"));
+                c = new TypeRoom(rs.getInt("malp"),rs.getString("tenphong"), rs.getInt("dongia"),rs.getString("mota"));
             }
         } catch (SQLException e) {
         } finally {
@@ -106,11 +105,12 @@ public class ModelLoaiPhong {
         int result = 0;
         conn = lcdb.getConnectMySQL();
 
-        String sql = "INSERT INTO loaiphong(tenphong,dongia) VALUES (?,?)";
+        String sql = "INSERT INTO loaiphong(tenphong,dongia,mota) VALUES (?,?,?)";
         try {
             pst = conn.prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
             pst.setString(1, item.getTenPhong());
             pst.setInt(2, item.getDonGia());
+            pst.setString(3, item.getMoTa());
             pst.executeUpdate();
             rs = pst.getGeneratedKeys();
             if(rs.next()){
@@ -130,11 +130,12 @@ public class ModelLoaiPhong {
     public int editItem(TypeRoom c) {
         int result = 0;
         conn = lcdb.getConnectMySQL();
-        String sql = "UPDATE loaiphong SET tenphong=?,dongia = ? WHERE malp=? LIMIT 1";
+        String sql = "UPDATE loaiphong SET tenphong=?,dongia = ?,mota = ? WHERE malp=? LIMIT 1";
         try {
             pst = conn.prepareStatement(sql);
             pst.setString(1, c.getTenPhong());
             pst.setInt(2, c.getDonGia());
+            pst.setString(3, c.getMoTa());
             pst.setInt(3, c.getMaLP());
             pst.executeUpdate();
             result = c.getMaLP();

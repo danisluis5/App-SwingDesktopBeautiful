@@ -589,6 +589,7 @@ public class FrMain extends javax.swing.JFrame implements MouseListener,ActionLi
             tab.add("<html><p style=\"color:#88551a\">Sử dụng dịch vụ</p></html>",new PnHome());
         }else if(select==2){
             tab.add("<html><p style=\"color:#88551a\">Quản lý phòng&nbsp;&nbsp;&nbsp;&nbsp;</p></html>",new PnRoom());
+            tab.add("<html><p style=\"color:#88551a\">Quản lý loại phòng&nbsp;&nbsp;&nbsp;&nbsp;</p></html>",new PnTypeRoom());
             tab.add("<html><p style=\"color:#88551a\">Quản lý tầng&nbsp;&nbsp;&nbsp;&nbsp;</p></html>",new PnFloor());
         }else if(select==3){
             tab.add("<html><p style=\"color:#88551a\">Quản lý khách hàng&nbsp;&nbsp;&nbsp;&nbsp;</p></html>",new PnUser());

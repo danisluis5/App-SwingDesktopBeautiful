@@ -5,13 +5,17 @@
  */
 package bean;
 
+import java.sql.Timestamp;
+
 /**
  *
  * @author vuongluis
  */
-public class Customer {
+public class KhachHang {
     private int maKH;
     private String tenKhachHang;
+    private String gioiTinh;
+    private Timestamp ngaySinh;
     private String soCMT;
     private String thuDienTu;
     private String diaChi;
@@ -20,12 +24,14 @@ public class Customer {
     private String quocTich;
     private int maTV;
 
-    public Customer() {
+    public KhachHang() {
     }
 
-    public Customer(int maKH, String tenKhachHang, String soCMT, String thuDienTu, String diaChi, String ngheNghiep, String soDienThoai, String quocTich, int maTV) {
+    public KhachHang(int maKH, String tenKhachHang, String gioiTinh, Timestamp ngaySinh, String soCMT, String thuDienTu, String diaChi, String ngheNghiep, String soDienThoai, String quocTich, int maTV) {
         this.maKH = maKH;
         this.tenKhachHang = tenKhachHang;
+        this.gioiTinh = gioiTinh;
+        this.ngaySinh = ngaySinh;
         this.soCMT = soCMT;
         this.thuDienTu = thuDienTu;
         this.diaChi = diaChi;
@@ -35,6 +41,15 @@ public class Customer {
         this.maTV = maTV;
     }
 
+    public Timestamp getNgaySinh() {
+        return ngaySinh;
+    }
+
+    public void setNgaySinh(Timestamp ngaySinh) {
+        this.ngaySinh = ngaySinh;
+    }
+
+    
     public int getMaKH() {
         return maKH;
     }
@@ -106,4 +121,17 @@ public class Customer {
     public void setMaTV(int maTV) {
         this.maTV = maTV;
     }
+
+    public String getGioiTinh() {
+        return gioiTinh;
+    }
+
+    public String getSoCMT() {
+        return soCMT;
+    }
+
+    public void setGioiTinh(String gioiTinh) {
+        this.gioiTinh = gioiTinh;
+    }
+    
 }

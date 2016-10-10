@@ -5,24 +5,25 @@
  */
 package render;
 
+import bean.LoaiThanhVien;
 import bean.TypeRoom;
 import java.util.ArrayList;
 import javax.swing.ComboBoxModel;
 import javax.swing.event.ListDataListener;
-import model.ModelLoaiPhong;
+import model.ModelLoaiThanhVien;
 
 /**
  *
  * @author vuongluis
  */
-public class LoaiPhongComboboxModel implements ComboBoxModel<TypeRoom>{
+public class LoaiThanhVienComboboxModel implements ComboBoxModel<LoaiThanhVien>{
 
-    private ArrayList<TypeRoom> alItems = new ArrayList<TypeRoom>();
-    private ModelLoaiPhong model;
-    private TypeRoom selectedItem = new TypeRoom();
+    private ArrayList<LoaiThanhVien> alItems = new ArrayList<LoaiThanhVien>();
+    private ModelLoaiThanhVien model;
+    private LoaiThanhVien selectedItem = new LoaiThanhVien();
     
-    public LoaiPhongComboboxModel(boolean isSearch, TypeRoom obj) {
-        model = new ModelLoaiPhong();
+    public LoaiThanhVienComboboxModel(boolean isSearch, LoaiThanhVien obj) {
+        model = new ModelLoaiThanhVien();
         alItems = model.getList();
         if(obj == null){
             selectedItem = alItems.get(0);
@@ -33,7 +34,7 @@ public class LoaiPhongComboboxModel implements ComboBoxModel<TypeRoom>{
     
     @Override
     public void setSelectedItem(Object anItem) {
-        selectedItem = (TypeRoom) anItem;
+        selectedItem = (LoaiThanhVien) anItem;
     }
 
     @Override
@@ -46,7 +47,7 @@ public class LoaiPhongComboboxModel implements ComboBoxModel<TypeRoom>{
         return alItems.size();
     }
 
-    public TypeRoom getElementAt(int index) {
+    public LoaiThanhVien getElementAt(int index) {
         return alItems.get(index);
     }
 

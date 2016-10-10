@@ -5,7 +5,8 @@
  */
 package model;
 
-import bean.KhachHang;
+import bean.LoaiThanhVien;
+import bean.Room;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,53 +21,54 @@ import library.LibraryConnectDb;
  *
  * @author vuongluis
  */
-public class ModelKhachHang {
+public class ModelLoaiThanhVien {
+    
     private LibraryConnectDb lcdb;
     private Statement st;
     private PreparedStatement pst;
     private ResultSet rs;
     private Connection conn;
     
-    public ModelKhachHang(){
+    public ModelLoaiThanhVien(){
         lcdb = new LibraryConnectDb();
     }
     
-    public ArrayList<KhachHang> getList(){
-        ArrayList<KhachHang> alItem = new ArrayList<>();
-        String sql = "SELECT * FROM khachhang";
+    public ArrayList<LoaiThanhVien> getList(){
+        ArrayList<LoaiThanhVien> alItem = new ArrayList<>();
+        String sql = "SELECT * FROM loaithanhvien";
 
         conn = lcdb.getConnectMySQL();
         try {
             st = conn.createStatement();
             rs = st.executeQuery(sql);
             while (rs.next()) {
-                alItem.add(new KhachHang(rs.getInt("makh"), rs.getString("tenkhachhang"),rs.getString("gioitinh"),rs.getTimestamp("ngaysinh"), rs.getString("socmt"),rs.getString("email"),rs.getString("diachi"),rs.getString("nghenghiep"),rs.getString("sodienthoai"),rs.getString("quoctich"),rs.getInt("matv")));
+                alItem.add(new LoaiThanhVien(rs.getInt("matv"),rs.getString("tenthanhvien"),rs.getString("mavip")));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ModelTang.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ModelLoaiThanhVien.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 rs.close();
                 st.close();
                 conn.close();
             } catch (SQLException ex) {
-                Logger.getLogger(ModelTang.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ModelLoaiThanhVien.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
         return alItem;
     }
     
-     public KhachHang getItem(int cid) {
+     public LoaiThanhVien getItem(int cid) {
         conn = lcdb.getConnectMySQL();
-        KhachHang c = null;
-        String sql = "SELECT * FROM customer WHERE makh = ? LIMIT 1";
+        LoaiThanhVien c = null;
+        String sql = "SELECT * FROM loaithanhvien WHERE matv = ? LIMIT 1";
         try {
             pst = conn.prepareStatement(sql);
             pst.setInt(1, cid);
             rs = pst.executeQuery();
             if (rs.next()) {
-                c = new KhachHang(rs.getInt("makh"),rs.getString("tenkhachhang"), rs.getString("gioitinh"),rs.getTimestamp("ngaysinh"), rs.getString("socmt"),rs.getString("email"),rs.getString("diachi"),rs.getString("nghenghiep"),rs.getString("sodienthoai"),rs.getString("quoctich"),rs.getInt("matv"));
+                c = new LoaiThanhVien(rs.getInt("matv"),rs.getString("tenthanhvien"),rs.getString("mavip"));
             }
         } catch (SQLException e) {
         } finally {
@@ -79,23 +81,14 @@ public class ModelKhachHang {
         return c;
     }
      
-    public int addItem(KhachHang item) {
+    public int addItem(LoaiThanhVien item) {
         int result = 0;
         conn = lcdb.getConnectMySQL();
-
-        String sql = "INSERT INTO khachhang(tenkhachhang,gioitinh,ngaysinh,socmt,email,diachi,nghenghiep,sodienthoai,quoctich,matv) VALUES (?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO loaithanhvien(tenthanhvien,mavip) VALUES (?,?)";
         try {
             pst = conn.prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
-            pst.setString(1, item.getTenKhachHang());
-            pst.setString(2, item.getGioiTinh());
-            pst.setTimestamp(3, item.getNgaySinh());
-            pst.setString(4, item.getSoCMT());
-            pst.setString(5, item.getThuDienTu());
-            pst.setString(6, item.getDiaChi());
-            pst.setString(7, item.getNgheNghiep());
-            pst.setString(8, item.getSoDienThoai());
-            pst.setString(9, item.getQuocTich());
-            pst.setInt(10, item.getMaTV());
+            pst.setString(1,item.getTenThanhVien());
+            pst.setString(2, item.getMaVip());
             pst.executeUpdate();
             rs = pst.getGeneratedKeys();
             if(rs.next()){
@@ -112,23 +105,17 @@ public class ModelKhachHang {
         return result;
     }
     
-    public int editItem(KhachHang c) {
+    public int editItem(LoaiThanhVien c) {
         int result = 0;
         conn = lcdb.getConnectMySQL();
-        String sql = "UPDATE khachhang SET tenkhachhang=?,gioitinh = ?,ngaysinh = ?,socmt = ?,email = ?,diachi = ?,nghenghiep = ?,sodienthoai = ?,quoctich = ?,matv = ? WHERE makh=? LIMIT 1";
+        String sql = "UPDATE loaithanhvien SET tenthanhvien=?,mavip = ? WHERE matv = ? LIMIT 1";
         try {
-            pst.setString(1, c.getTenKhachHang());
-            pst.setString(2, c.getGioiTinh());
-            pst.setTimestamp(3, c.getNgaySinh());
-            pst.setString(4, c.getSoCMT());
-            pst.setString(5, c.getThuDienTu());
-            pst.setString(6, c.getDiaChi());
-            pst.setString(7, c.getNgheNghiep());
-            pst.setString(8, c.getSoDienThoai());
-            pst.setString(9, c.getQuocTich());
-            pst.setInt(10, c.getMaTV());
+            pst = conn.prepareStatement(sql);
+            pst.setString(1,c.getTenThanhVien());
+            pst.setString(2, c.getMaVip());
+            pst.setInt(3, c.getMatv());
             pst.executeUpdate();
-            result = c.getMaKH();
+            result = c.getMatv();
         } catch (SQLException e) {
         } finally {
             try {
@@ -144,7 +131,7 @@ public class ModelKhachHang {
         int result = 0;
         conn = lcdb.getConnectMySQL();
 
-        String sql = "DELETE FROM khachhang WHERE makh = ? LIMIT 1";
+        String sql = "DELETE FROM loaithanhvien WHERE matv = ? LIMIT 1";
         try {
             pst = conn.prepareStatement(sql);
             pst.setInt(1, cid);

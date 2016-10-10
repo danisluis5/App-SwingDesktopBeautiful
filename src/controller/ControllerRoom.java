@@ -29,7 +29,7 @@ public class ControllerRoom extends AbstractTableModel{
         "<html><center><p style='color:#00434a;font-weight:bold;'>Tình Trạng</p></center></html>",
         "<html><center><p style='color:#00434a;font-weight:bold;'>Trạng Thái</p></center></html>",
         "<html><center><p style='color:#00434a;font-weight:bold;'>Ghi Chú</p></center></html>",
-        "<html><center><p style='color:#00434a;font-weight:bold;'>Tên Phòng</p></center></html>",
+        "<html><center><p style='color:#00434a;font-weight:bold;'>Loại Phòng</p></center></html>",
         "<html><center><p style='color:#00434a;font-weight:bold;'>Tầng</p></center></html>"
             
     };

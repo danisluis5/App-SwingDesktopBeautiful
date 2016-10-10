@@ -5,23 +5,24 @@
  */
 package view;
 
-import controller.ControllerTang;
+import controller.ControllerLoaiPhong;
 
 /**
  *
  * @author vuongluis
  */
-public class PnFloor extends javax.swing.JPanel {
+public class PnTypeRoom extends javax.swing.JPanel {
 
     /**
      * Creates new form PnFloor
      */
-    private ControllerTang controller;
+    private ControllerLoaiPhong controller;
     
-    public PnFloor() {
+    public PnTypeRoom() {
         initComponents();
-        controller = new ControllerTang(tbMain);
+        controller = new ControllerLoaiPhong(tbMain);
         controller.loadTable();
+        
     }
 
     /**
@@ -52,6 +53,9 @@ public class PnFloor extends javax.swing.JPanel {
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
         RightFloor = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbMain = new javax.swing.JTable();
@@ -64,13 +68,13 @@ public class PnFloor extends javax.swing.JPanel {
         room.setOneTouchExpandable(true);
 
         LeftFloor.setBackground(new java.awt.Color(242, 242, 242));
-        LeftFloor.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin chi tiết tầng", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 1, 12), new java.awt.Color(0, 102, 255))); // NOI18N
+        LeftFloor.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin chi tiết loại phòng", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 1, 12), new java.awt.Color(0, 102, 255))); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel1.setText("Số thứ tự:");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel2.setText("Tầng:");
+        jLabel2.setText("Tên phòng:");
 
         tfId.setEditable(false);
         tfId.setPreferredSize(new java.awt.Dimension(59, 24));
@@ -122,7 +126,7 @@ public class PnFloor extends javax.swing.JPanel {
         );
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel4.setText("Số Phòng:");
+        jLabel4.setText("Đơn giá:");
 
         tfSoPhong.setPreferredSize(new java.awt.Dimension(59, 24));
 
@@ -151,31 +155,46 @@ public class PnFloor extends javax.swing.JPanel {
         jButton6.setText("Xóa");
         jPanel2.add(jButton6);
 
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel5.setText("Mô tả:");
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setLineWrap(true);
+        jTextArea1.setRows(5);
+        jTextArea1.setWrapStyleWord(true);
+        jScrollPane2.setViewportView(jTextArea1);
+
         javax.swing.GroupLayout LeftFloorLayout = new javax.swing.GroupLayout(LeftFloor);
         LeftFloor.setLayout(LeftFloorLayout);
         LeftFloorLayout.setHorizontalGroup(
             LeftFloorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(SearchFloor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(LeftFloorLayout.createSequentialGroup()
                 .addGap(36, 36, 36)
                 .addGroup(LeftFloorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel4))
-                .addGap(29, 29, 29)
-                .addGroup(LeftFloorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfSoPhong, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(LeftFloorLayout.createSequentialGroup()
-                        .addComponent(tfId, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(100, 100, 100))
-                    .addComponent(tfTang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(LeftFloorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel4))
+                        .addGap(29, 29, 29)
+                        .addGroup(LeftFloorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tfSoPhong, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(LeftFloorLayout.createSequentialGroup()
+                                .addComponent(tfId, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(100, 100, 100))
+                            .addComponent(tfTang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(LeftFloorLayout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2))
                 .addContainerGap())
-            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         LeftFloorLayout.setVerticalGroup(
             LeftFloorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(LeftFloorLayout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addGap(17, 17, 17)
                 .addGroup(LeftFloorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(tfId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -183,20 +202,24 @@ public class PnFloor extends javax.swing.JPanel {
                 .addGroup(LeftFloorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfTang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addGap(18, 18, 18)
+                .addGap(17, 17, 17)
                 .addGroup(LeftFloorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfSoPhong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addGap(18, 18, 18)
+                .addGap(17, 17, 17)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 110, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(SearchFloor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         room.setLeftComponent(LeftFloor);
 
         RightFloor.setBackground(new java.awt.Color(242, 242, 242));
-        RightFloor.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh sách các tầng khách sạn", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 1, 12), new java.awt.Color(0, 102, 255))); // NOI18N
+        RightFloor.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh sách các loại phòng", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 1, 12), new java.awt.Color(0, 102, 255))); // NOI18N
         RightFloor.setLayout(new java.awt.BorderLayout());
 
         jScrollPane1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -261,9 +284,12 @@ public class PnFloor extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JSplitPane room;
     private javax.swing.JTable tbMain;
